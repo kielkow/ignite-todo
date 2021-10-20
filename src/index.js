@@ -79,15 +79,23 @@ app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
     }
   });
 
-  return response.status(201).send();
+  return response.status(204).send();
 });
 
 app.patch('/todos/:id/done', checksExistsUserAccount, (request, response) => {
-  // Complete aqui
+  const { user } = request;
+
+  user.todos = user.todos.map(todo => {
+    if (todo.id === request.params.id) {
+      todo.done = true;
+    }
+  });
+
+  return response.status(204).send();
 });
 
 app.delete('/todos/:id', checksExistsUserAccount, (request, response) => {
-  // Complete aqui
+
 });
 
 module.exports = app;
