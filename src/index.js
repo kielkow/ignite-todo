@@ -95,7 +95,11 @@ app.patch('/todos/:id/done', checksExistsUserAccount, (request, response) => {
 });
 
 app.delete('/todos/:id', checksExistsUserAccount, (request, response) => {
+  const { user } = request;
 
+  user.todos = user.todos.filter(todo => todo.id !== request.params.id);
+
+  return response.status(200).json(user.todos);
 });
 
 module.exports = app;
