@@ -40,13 +40,15 @@ app.post('/users', (request, response) => {
     todos: []
   };
 
-  users.push(customer);
+  users.push(user);
 
   return response.status(201).send();
 });
 
 app.get('/todos', checksExistsUserAccount, (request, response) => {
-  // Complete aqui
+  const { user } = request;
+
+  return response.json(user.todos);
 });
 
 app.post('/todos', checksExistsUserAccount, (request, response) => {
